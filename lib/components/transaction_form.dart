@@ -46,68 +46,75 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            TextField(
-                controller: titleController,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.multiline,
-                onSubmitted: (_) => _submitForm,
-                decoration: const InputDecoration(labelText: 'Título')),
-            TextField(
-                controller: valueController,
-                textInputAction: TextInputAction.done,
-                keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
-                onSubmitted: (_) => _submitForm,
-                decoration: const InputDecoration(labelText: 'Valor (R\$)')),
-            SizedBox(
-              height: 70,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      'Data Selecionada: ${DateFormat('dd/MM/y').format(_selectedDate)}',
-                      style: const TextStyle(fontWeight: FontWeight.normal),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: _showDatePicker,
-                    child: const Text(
-                      'Selecionar Data',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+    return SingleChildScrollView(
+      child: Card(
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: 10 + MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Column(
+            children: [
+              TextField(
+                  controller: titleController,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.multiline,
+                  onSubmitted: (_) => _submitForm,
+                  decoration: const InputDecoration(labelText: 'Título')),
+              TextField(
+                  controller: valueController,
+                  textInputAction: TextInputAction.done,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  onSubmitted: (_) => _submitForm,
+                  decoration: const InputDecoration(labelText: 'Valor (R\$)')),
+              SizedBox(
+                height: 70,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        'Data Selecionada: ${DateFormat('dd/MM/y').format(_selectedDate)}',
+                        style: const TextStyle(fontWeight: FontWeight.normal),
                       ),
                     ),
+                    TextButton(
+                      onPressed: _showDatePicker,
+                      child: const Text(
+                        'Selecionar Data',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    style: TextButton.styleFrom(
+                      foregroundColor: Theme.of(context).colorScheme.primary,
+                    ),
+                    child: const Text('Cancelar'),
                   ),
                 ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  style: TextButton.styleFrom(
-                    foregroundColor: Theme.of(context).colorScheme.primary,
-                  ),
-                  child: const Text('Cancelar'),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  onPressed: _submitForm,
-                  child: const Text('Nova Transação'),
-                )
-              ],
-            ),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    onPressed: _submitForm,
+                    child: const Text('Nova Transação'),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
