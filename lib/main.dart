@@ -7,6 +7,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 import 'components/transaction_list.dart';
 import 'models/transaction.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:intl/intl.dart';
 
@@ -30,6 +31,15 @@ class ExpensesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: const MyHomePage(),
+      title: 'Despesas Pessoais',
+      locale: const Locale('pt', 'BR'),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('pt', 'BR'),
+      ],
       theme: ThemeData(
         colorScheme: const ColorScheme.light(
           primary: primaryColor,
@@ -56,14 +66,14 @@ class ExpensesApp extends StatelessWidget {
             color: secondyTextColor,
           ),
         ),
-        appBarTheme: const AppBarTheme(
+        appBarTheme: AppBarTheme(
           backgroundColor: primaryColor,
           elevation: 5,
           shadowColor: Colors.grey,
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
           titleTextStyle: TextStyle(
             fontFamily: 'OpenSans',
-            fontSize: 20,
+            fontSize: 20 * MediaQuery.of(context).textScaler.scale(1),
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -134,25 +144,37 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: const Text('Despesas Pessoais'),
+      centerTitle: true,
+      actions: <Widget>[
+        IconButton(
+          onPressed: () => _openTransactionFormModal(context),
+          icon: const Icon(Icons.add),
+        )
+      ],
+    );
+
+    final avaliableHeight = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Despesas Pessoais'),
-        centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-            onPressed: () => _openTransactionFormModal(context),
-            icon: const Icon(Icons.add),
-          )
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(recentTransactions: _recentTransactions),
-            TransactionList(
-              transactions: _transactions,
-              onRemove: _removeTransaction,
+            SizedBox(
+              height: avaliableHeight * 0.30,
+              child: Chart(recentTransactions: _recentTransactions),
+            ),
+            SizedBox(
+              height: avaliableHeight * 0.70,
+              child: TransactionList(
+                transactions: _transactions,
+                onRemove: _removeTransaction,
+              ),
             ),
           ],
         ),
