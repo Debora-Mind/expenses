@@ -1,5 +1,5 @@
 import 'package:expenses/components/adaptative_button.dart';
-import 'package:expenses/components/adaptative_texrfield.dart';
+import 'package:expenses/components/adaptative_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

@@ -31,70 +31,96 @@ class ExpensesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const MyHomePage(),
-      title: 'Despesas Pessoais',
-      locale: const Locale('pt', 'BR'),
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('pt', 'BR'),
-      ],
-      theme: ThemeData(
-        colorScheme: const ColorScheme.light(
-          primary: primaryColor,
-          secondary: secondyColor,
-          surface: backgroundColor,
-        ),
-        fontFamily: 'Quicksand',
-        textTheme: const TextTheme(
-          titleMedium: TextStyle(
-            fontFamily: 'OpenSans',
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: primaryTextColor,
-          ),
-          bodyMedium: TextStyle(
-            fontFamily: 'OpenSans',
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: primaryTextColor,
-          ),
-          bodySmall: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: secondyTextColor,
-          ),
-        ),
-        appBarTheme: AppBarTheme(
-          backgroundColor: primaryColor,
-          elevation: 5,
-          shadowColor: Colors.grey,
-          iconTheme: const IconThemeData(color: Colors.white),
-          titleTextStyle: TextStyle(
-            fontFamily: 'OpenSans',
-            fontSize: 20 * MediaQuery.of(context).textScaler.scale(1),
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-              backgroundColor: primaryColor,
-              foregroundColor: backgroundColor,
-              textStyle:
-                  const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8))),
-        ),
-        datePickerTheme: const DatePickerThemeData(
-          backgroundColor: backgroundColor,
-          headerBackgroundColor: primaryColor,
-          headerForegroundColor: backgroundColor,
-        ),
-      ),
-    );
+    return Platform.isIOS
+        ? const CupertinoApp(
+            home: MyHomePage(),
+            title: 'Despesas Pessoais',
+            locale: Locale('pt', 'BR'),
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: [
+              Locale('pt', 'BR'),
+            ],
+            theme: CupertinoThemeData(
+              barBackgroundColor: primaryColor,
+              textTheme: CupertinoTextThemeData(
+                primaryColor: primaryColor,
+                textStyle: TextStyle(
+                  fontFamily: 'OpenSans',
+                ),
+                pickerTextStyle: TextStyle(
+                  backgroundColor: backgroundColor,
+                  color: primaryColor,
+                ),
+              ),
+            ),
+          )
+        : MaterialApp(
+            home: const MyHomePage(),
+            title: 'Despesas Pessoais',
+            locale: const Locale('pt', 'BR'),
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('pt', 'BR'),
+            ],
+            theme: ThemeData(
+              colorScheme: const ColorScheme.light(
+                primary: primaryColor,
+                secondary: secondyColor,
+                surface: backgroundColor,
+              ),
+              fontFamily: 'Quicksand',
+              textTheme: const TextTheme(
+                titleMedium: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: primaryTextColor,
+                ),
+                bodyMedium: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: primaryTextColor,
+                ),
+                bodySmall: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: secondyTextColor,
+                ),
+              ),
+              appBarTheme: AppBarTheme(
+                backgroundColor: primaryColor,
+                elevation: 5,
+                shadowColor: Colors.grey,
+                iconTheme: const IconThemeData(color: Colors.white),
+                titleTextStyle: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 20 * MediaQuery.of(context).textScaler.scale(1),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: primaryColor,
+                    foregroundColor: backgroundColor,
+                    textStyle: const TextStyle(
+                        fontWeight: FontWeight.w700, fontSize: 16),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8))),
+              ),
+              datePickerTheme: const DatePickerThemeData(
+                backgroundColor: backgroundColor,
+                headerBackgroundColor: primaryColor,
+                headerForegroundColor: backgroundColor,
+              ),
+            ),
+          );
   }
 }
 
