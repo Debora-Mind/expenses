@@ -6,16 +6,43 @@ import 'package:flutter/material.dart';
 class TransactionForm extends StatefulWidget {
   final void Function(String, double, DateTime) onSubmit;
 
-  const TransactionForm(this.onSubmit, {super.key});
+  TransactionForm(this.onSubmit, {super.key}) {
+    print('Constructor TransactionForm');
+  }
 
   @override
-  State<TransactionForm> createState() => _TransactionFormState();
+  State<TransactionForm> createState() {
+    print('Constructor createState');
+    return _TransactionFormState();
+  }
 }
 
 class _TransactionFormState extends State<TransactionForm> {
   final titleController = TextEditingController();
   final valueController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
+
+  _TransactionFormState() {
+    print('Constructor _TransactionFormState');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    print('initState() _TransactionFormState');
+  }
+
+  @override
+  void didUpdateWidget(TransactionForm oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print('didUpdateWidget() _TransactionFormState');
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    print('dispose() _TransactionFormState');
+  }
 
   _submitForm() {
     final tittle = titleController.text;
